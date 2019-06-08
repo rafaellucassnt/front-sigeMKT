@@ -76,6 +76,10 @@ export class CampanhaComponent implements OnInit {
   despesas: Despesa[] = [];
   loadCamp = false;
 
+  campanhasEmAndamento: Campanha[] = [];
+  dataAtual = new Date(2019, 5);
+  gerenteSessao: Funcionario;
+
   recl: Reclamacao[] = [];
   reclS = 0;
   reclN = 0;
@@ -176,6 +180,7 @@ export class CampanhaComponent implements OnInit {
   }
 
   setData() {
+
     this.campanhas.forEach(campanha => {
 
       campanha.funcionarios = [];
@@ -203,8 +208,25 @@ export class CampanhaComponent implements OnInit {
       });
     });
 
-    console.log(this.campanhas);
+    
+    for(let i = 0; this.campanhasEmAndamento.length == 0 && i < this.funcionarios.length; i++)
+    {
+      this.gerenteSessao = this.funcionarios[i];
+
+      this.campanhas.forEach(c => {
+        if(c.gerenteId == this.gerenteSessao.idN &&
+           c.DATA_INICIO.getMonth() == this.dataAtual.getMonth() &&
+           c.DATA_INICIO.getFullYear() == this.dataAtual.getFullYear() ){
+          this.campanhasEmAndamento.push(c);
+        }
+      });
+    }
+    console.log(this.campanhas[1].DATA_TERMINO.getDate())
+    console.log(this.campanhas[1].DATA_TERMINO.getMonth())
+    console.log(this.campanhas[1].DATA_INICIO)
+
   }
+
 
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {

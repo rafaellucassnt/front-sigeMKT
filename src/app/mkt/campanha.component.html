@@ -1,5 +1,3 @@
-
-
 <mat-card>
   <mat-tab-group>
     <mat-tab label="Estratégico">
@@ -11,8 +9,8 @@
               <th scope="col">Midia</th>
               <th scope="col">Funcionarios</th>
               <th scope="col">Produtos</th>
-              <th scope="col">Inicio</th>
-              <th scope="col">Fim</th>
+              <!-- <th scope="col">Inicio</th>
+              <th scope="col">Fim</th> -->
               <th scope="col">Variação</th>
               <th scope="col">Custo</th>
             </tr>
@@ -23,21 +21,21 @@
               <td>{{campanha.MIDIA}}</td>
               <td>
                 <div *ngFor="let funcionario of campanha.funcionarios">
-                  {{ funcionario.Nome }} 
+                  {{ funcionario.Nome }}
                   <span *ngIf="funcionario.idN==campanha.gerenteId"> (Gerente) </span>
                 </div>
               </td>
               <td>
-              <div *ngFor="let produto of campanha.produtos">
+                <div *ngFor="let produto of campanha.produtos">
                   {{ produto.nomeprod }}
                 </div>
               </td>
-              <td>
-                {{campanha.DATA_TERMINO.getDay()+1}}/{{campanha.DATA_INICIO.getMonth()+1}}/{{campanha.DATA_INICIO.getFullYear()}}
+              <!-- <td>
+                {{campanha.DATA_TERMINO.getDate()}}/{{campanha.DATA_INICIO.getMonth()}}/{{campanha.DATA_INICIO.getFullYear()}}
               </td>
               <td>
-                {{campanha.DATA_TERMINO.getDay()+1}}/{{campanha.DATA_TERMINO.getMonth()+1}}/{{campanha.DATA_TERMINO.getFullYear()}}
-              </td>
+                {{campanha.DATA_TERMINO.getDate()}}/{{campanha.DATA_TERMINO.getMonth()}}/{{campanha.DATA_TERMINO.getFullYear()}}
+              </td> -->
               <td>{{campanha.variacao}}%</td>
               <td>R$ {{campanha.custo}}</td>
             </tr>
@@ -91,8 +89,7 @@
               <th scope="col">Inicio</th>
               <th scope="col">Fim</th>
               <th scope="col">Variação</th>
-              <th scope="col">Custo</th>
-              <th scope="col">FINALIZADA</th>
+              <!-- <th scope="col">Custo</th> -->
             </tr>
           </thead>
           <tbody>
@@ -111,15 +108,60 @@
                 </div>
               </td>
               <td>
-                {{campanha.DATA_TERMINO.getDay()+1}}/{{campanha.DATA_INICIO.getMonth()+1}}/{{campanha.DATA_INICIO.getFullYear()}}
+                {{campanha.DATA_INICIO.getDate()}}/{{campanha.DATA_INICIO.getMonth()}}/{{campanha.DATA_INICIO.getFullYear()}}
               </td>
               <td>
-                {{campanha.DATA_TERMINO.getDay()+1}}/{{campanha.DATA_TERMINO.getMonth()+1}}/{{campanha.DATA_TERMINO.getFullYear()}}
+                {{campanha.DATA_TERMINO.getDate()}}/{{campanha.DATA_TERMINO.getMonth()}}/{{campanha.DATA_TERMINO.getFullYear()}}
               </td>
               <td>{{campanha.variacao}}%</td>
-              <td>R$ {{campanha.custo}}</td>
-              <td>{{campanha.FINALIZADA}}</td>
+              <!-- <td>R$ {{campanha.custo}}</td> -->
             </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+
+
+
+    <mat-tab label="Tático - Acompanhamento de Equipes">
+      <div *ngIf="loadCamp">
+        <br>
+        <h5>Gerente: {{gerenteSessao.Nome}}</h5>
+        <h5>Mes: {{dataAtual.getMonth()}}</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Midia</th>
+              <th scope="col">Equipe</th>
+              <th scope="col">Produtos</th>
+              <th scope="col">Inicio</th>
+              <th scope="col">Fim</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr mdbTableCol *ngFor="let campanha of campanhasEmAndamento">
+
+              <td>{{campanha.ID}}</td>
+              <td>{{campanha.MIDIA}}</td>
+              <td>
+                <div *ngFor="let funcionario of campanha.funcionarios">
+                  <span *ngIf="funcionario.idN!=campanha.gerenteId"> {{ funcionario.Nome }} </span>
+                </div>
+              </td>
+              <td>
+                <div *ngFor="let produto of campanha.produtos">
+                  {{ produto.nomeprod }}
+                </div>
+              </td>
+              <td>
+                {{campanha.DATA_INICIO.getDate()}}/{{campanha.DATA_INICIO.getMonth()}}/{{campanha.DATA_INICIO.getFullYear()}}
+              </td>
+              <td>
+                {{campanha.DATA_TERMINO.getDate()}}/{{campanha.DATA_TERMINO.getMonth()}}/{{campanha.DATA_TERMINO.getFullYear()}}
+              </td>
+            </tr>
+
           </tbody>
         </table>
       </div>
